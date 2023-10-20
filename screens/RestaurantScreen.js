@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Image,
   ScrollView,
@@ -11,9 +11,18 @@ import * as Icon from "react-native-feather";
 import { themeColors } from "../theme";
 import DishCard from "../components/DishCard";
 import CartIcon from "../components/CartIcon";
+import { useDispatch } from "react-redux";
+import { setRestaurant } from "../slices/restaurantSlice";
 
 const RestaurantScreen = ({ route, navigation }) => {
   const { restaurant } = route.params;
+  const dispatch=useDispatch()
+
+  useEffect(()=>{
+    if(restaurant && restaurant.id){
+      dispatch(setRestaurant({...restaurant}))
+    }
+  },[])
 
   return (
     <View className="flex-1">
